@@ -1,0 +1,35 @@
+﻿@using Task_Qulix.Models;
+@{
+    ViewBag.Title = "FormAddCompany";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>FormAddCompany</h2>
+
+<table class="table">
+    <tr>
+        <td>Наименование</td>
+        <td>Размер компании</td>
+        <td>ОПФ</td>
+    </tr>
+    @using (Html.BeginForm("AddCompany", "AddW_C", FormMethod.Post))
+    {
+        <tr>
+            <td><input name="name_of" type="text" required /></td>
+            <td><input name="company_size" type="text" required /></td>
+            <td>
+                <select name="LegSelector" required>
+                    @foreach (var s in (ViewBag.positions as List<Legal_Form>))
+                    {
+                        <option value="@s.id">@s.name_of</option>
+                    }
+                </select>
+            </td>
+
+        </tr>
+        <tr>
+            <td colspan="1">@Html.ActionLink("Назад к списку", "Index", "Home")</td>
+            <td ><input type="submit" name="Сохранить"></td>
+        </tr>
+    }
+</table>

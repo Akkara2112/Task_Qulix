@@ -1,0 +1,55 @@
+﻿@using Task_Qulix.Models;
+@{
+    ViewBag.Title = "AllWorkers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <table class="table">
+        <tr>
+            <td>Индификатор</td>
+            <td>Имя</td>
+            <td>Фамилия</td>
+            <td>Отчество</td>
+            <td>Дата приема на работу</td>
+            <td>Должность</td>
+            <td>Компания</td>
+        </tr>
+        @foreach (var s in (ViewBag.Newsel as List<Worker>))
+        {
+        <tr>
+            <td>@s.id</td>
+            <td>@s.first_name</td>
+            <td>@s.last_name</td>
+            <td>@s.patronymic</td>
+            <td>@s.date_of_registration</td>
+            <td>@s.position_id</td>
+            <td>@s.company_id</td>
+            <td></td>
+            <td></td>
+            <td>
+                @using (Html.BeginForm("DeleteWorker", "Home", FormMethod.Post))
+                {
+                    @Html.Hidden("id", s.id)
+                    @Html.Hidden("table_name", "Worker")
+                    <input type="submit" value="Удалить" />
+                }
+            </td>
+            <td>
+                @using (Html.BeginForm("FormUpWorker", "Update", FormMethod.Post))
+                {
+                    @Html.Hidden("id", s.id)
+                    @Html.Hidden("first_name", s.first_name)
+                    @Html.Hidden("last_name", s.last_name)
+                    @Html.Hidden("patronymic", s.patronymic)
+                    @Html.Hidden("date_of_registration", s.date_of_registration)
+                    @Html.Hidden("position_id", s.position_id)
+                    @Html.Hidden("company_id", s.company_id)
+                    <input type="submit" value="Обновить" />
+                }
+            </td>
+        </tr>
+        }
+    </table>
+</div>
+@Html.ActionLink("Добавить нового работника", "FormAddWorker", "AddW_C")

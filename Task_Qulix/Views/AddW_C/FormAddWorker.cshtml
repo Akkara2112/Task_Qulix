@@ -1,0 +1,47 @@
+﻿@using Task_Qulix.Models;
+@{
+    ViewBag.Title = "FormAddWorker";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Form Add Worker</h2>
+
+<table class="table">
+    <tr>
+        <td>Имя</td>
+        <td>Фамилия</td>
+        <td>Отчество</td>
+        <td>Дата принятия на работу</td>
+        <td>Должность</td>
+        <td>Компания</td>
+    </tr>
+    @using (Html.BeginForm("AddWorker", "AddW_C", FormMethod.Post))
+    {
+    <tr>
+        <td><input name="first_name" type="text" required /></td>
+        <td><input name="last_name"  type="text" required /></td>
+        <td><input name="patronymic" type="text" required /></td>
+        <td><input type="date" name="date_of_registration" required /></td>
+        <td>
+            <select name="PosSelector" required>
+                @foreach (var s in (ViewBag.positions as List<Position>))
+                {
+                    <option value="@s.id">@s.name_of</option>
+                }
+            </select>
+        </td>
+        <td>
+            <select name="ComSelector" required>
+                @foreach (var s in (ViewBag.companies as List<Company>))
+                {
+                    <option value="@s.id">@s.name_of</option>
+                }
+            </select>
+        </td>
+    </tr>
+        <tr>
+            <td colspan="3">@Html.ActionLink("Назад к списку","AllWorkers","Home")</td>
+            <td colspan="3"><input type="submit" name="Сохранить"></td>
+        </tr>
+    }
+    </table>

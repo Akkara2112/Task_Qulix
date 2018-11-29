@@ -1,0 +1,39 @@
+﻿@using Task_Qulix.Models;
+@{
+    ViewBag.Title = "FormUpCompany";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>FormUpCompany</h2>
+
+<table class="table">
+    <tr>
+        <td>Наименование</td>
+        <td>Размер компании</td>
+        <td>ОПФ</td>
+    </tr>
+    @using (Html.BeginForm("UpCompany", "Update", FormMethod.Post))
+    {
+        <input name="id" type="hidden" value="@ViewBag.id_s" />
+        <tr>
+            <td><input name="name_of" value="@ViewBag.name_of_c" type="text" required /></td>
+            <td><input name="company_size" value="@ViewBag.size_c" type="text" required /></td>
+            <td>
+                <select name="LegSelector" required>
+                    @foreach (var s in (ViewBag.positions as List<Legal_Form>))
+                    {
+                        if (s.name_of == ViewBag.form_c)
+                        {<option value="@s.id" selected>@s.name_of</option>}
+                        else
+                        {<option value="@s.id">@s.name_of</option>}
+                    }
+                </select>
+            </td>
+
+        </tr>
+        <tr>
+            <td colspan="1">@Html.ActionLink("Назад к списку", "Index", "Home")</td>
+            <td><input type="submit" name="Сохранить"></td>
+        </tr>
+    }
+</table>

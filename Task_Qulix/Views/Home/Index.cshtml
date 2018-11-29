@@ -1,0 +1,48 @@
+﻿@using Task_Qulix.Models;
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<div class="row">
+
+    <table class="table">
+        <tr>
+            <td>Индификатор</td>
+            <td>Наименование</td>
+            <td>Размер компании</td>
+            <td>ОПФ</td>
+        </tr>
+        @foreach (var s in (ViewBag.New as List<Company>))
+        {
+        <tr>
+            <td>@s.id</td>
+            <td>@s.name_of</td>
+            <td>@s.company_size</td>
+            <td>@s.legal_form_id</td>
+            <td></td>
+            <td></td>
+
+            <td>
+                @using (Html.BeginForm("DeleteCompany", "Home", FormMethod.Post))
+                {
+                    @Html.Hidden("id", s.id)
+                    @Html.Hidden("table_name", "Company")
+                    <input type="submit" value="Удалить" />
+                }
+            </td>
+            <td>
+                @using (Html.BeginForm("FormUpCompany", "Update", FormMethod.Post))
+                {
+                    @Html.Hidden("id", s.id)
+                    @Html.Hidden("name_of", s.name_of)
+                    @Html.Hidden("company_size", s.company_size)
+                    @Html.Hidden("legal_form_id", s.legal_form_id)
+                    <input type="submit" value="Обновить" />
+                }
+            </td>
+        </tr>
+        }
+    </table>
+</div>
+@Html.ActionLink("Добавить новую компанию", "FormAddCompany", "AddW_C")

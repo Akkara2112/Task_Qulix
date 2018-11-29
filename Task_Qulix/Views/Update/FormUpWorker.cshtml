@@ -1,0 +1,54 @@
+﻿@using Task_Qulix.Models;
+@{
+    ViewBag.Title = "FormUpWorker";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>FormUpWorker</h2>
+
+<table class="table">
+    <tr>
+        <td>Имя</td>
+        <td>Фамилия</td>
+        <td>Отчество</td>
+        <td>Дата принятия на работу</td>
+        <td>Должность</td>
+        <td>Компания</td>
+    </tr>
+    @using (Html.BeginForm("UpWorker", "Update", FormMethod.Post))
+    {
+        <input name="id" type="hidden" value="@ViewBag.id_w" />
+        <tr>
+            <td><input name="first_name" value="@ViewBag.first_w" type="text"  required /></td>
+            <td><input name="last_name" value="@ViewBag.last_w" type="text" required /></td>
+            <td><input name="patronymic" value="@ViewBag.pat_w" type="text" required /></td>
+            <td><input type="date" name="date_of_registration" value="@ViewBag.date_w" required/></td>
+            <td>
+                <select name="PosSelector" required>
+                    @foreach (var s in (ViewBag.positions as List<Position>))
+                    {
+                        if (s.name_of == ViewBag.pos_w)
+                            {<option value="@s.id" selected>@s.name_of</option>}
+                        else
+                            {<option value="@s.id">@s.name_of</option>}
+                    }
+                </select>
+            </td>
+            <td>
+                <select name="ComSelector" required>
+                    @foreach (var s in (ViewBag.companies as List<Company>))
+                    {
+                        if (s.name_of == ViewBag.com_id)
+                        {<option value="@s.id" selected>@s.name_of</option>}
+                        else
+                        {<option value="@s.id">@s.name_of</option>}
+                    }
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">@Html.ActionLink("Назад к списку", "AllWorkers", "Home")</td>
+            <td colspan="3"><input type="submit" name="Сохранить"></td>
+        </tr>
+    }
+</table>
